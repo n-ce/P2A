@@ -21,7 +21,7 @@ async function handler(request, response) {
   const { id } = request.query;
 
 
-  const data = fetch(`${api}/streams/${id}`)
+  const data = await fetch(`${api}/streams/${id}`)
     .then(res => res.json())
     .then(json => ({
       'title': json.title,
