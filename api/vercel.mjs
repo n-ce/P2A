@@ -20,6 +20,8 @@ async function handler(request, response) {
   const api = 'https://pipedapi.kavin.rocks';
   const { id } = request.query;
 
+  if (!id)
+    return response.send('Please enter a 11 letter id /id?={id}');
 
   const data = await fetch(`${api}/streams/${id}`)
     .then(res => res.json())
