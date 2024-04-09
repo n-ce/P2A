@@ -15,22 +15,23 @@ const allowCors = fn => async (req, res) => {
   return await fn(req, res)
 }
 
-async function handler(_, response) {
+async function handler(request, response) {
 
-  const api = 'https://api.invidious.io/instances.json';
+  const api = 'https://pipedapi.kavin.rocks';
+  const { id } = request.query;
 
-  const instances = await fetch(api)
+
+  const data = fetch(`${api}/streams/${id}`)
     .then(res => res.json())
-    .then(json => json.filter(i => i[1].cors && i[1].api && i[1].type === 'https').map(i => {
-      const url = i[1].uri;
-      const splitter = url.split('.');
-      const len = splitter.length;
-      const name = `${splitter[len - 2]}.${splitter[len - 1]} ${i[1].flag}`;
-      return `${name},${url}`;
-
+    .then(json => ({
+      'title': json.title,
+      'uploader': json.uploader,
+      'uploaderUrl': json.uploaderUrl,
+      'duration': json.duration,
+      'thumbnailUrl': `https://i3.ytimg.com/vi_webp/${id}/mqdefault.webp`
     }))
 
-  return response.send(instances);
+  return response.send(data);
 }
 
 export default allowCors(handler);
