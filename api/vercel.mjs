@@ -15,20 +15,6 @@ const allowCors = fn => async (req, res) => {
   return await fn(req, res)
 }
 
-function convertSStoHHMMSS(seconds) {
-  if (seconds < 0) return '';
-  const hh = Math.floor(seconds / 3600);
-  seconds %= 3600;
-  const mm = Math.floor(seconds / 60);
-  const ss = Math.floor(seconds % 60);
-  let mmStr = String(mm);
-  let ssStr = String(ss);
-  if (mm < 10) mmStr = '0' + mmStr;
-  if (ss < 10) ssStr = '0' + ssStr;
-  return (hh > 0 ?
-    hh + ':' : '') + `${mmStr}:${ssStr}`;
-}
-
 
 async function handler(request, response) {
 
@@ -37,6 +23,20 @@ async function handler(request, response) {
 
   if (!id)
     return response.send('Please enter a 11 letter id /id?={id}');
+
+  function convertSStoHHMMSS(seconds) {
+    if (seconds < 0) return '';
+    const hh = Math.floor(seconds / 3600);
+    seconds %= 3600;
+    const mm = Math.floor(seconds / 60);
+    const ss = Math.floor(seconds % 60);
+    let mmStr = String(mm);
+    let ssStr = String(ss);
+    if (mm < 10) mmStr = '0' + mmStr;
+    if (ss < 10) ssStr = '0' + ssStr;
+    return (hh > 0 ?
+      hh + ':' : '') + `${mmStr}:${ssStr}`;
+  }
 
   const data = await fetch(`${api}/streams/${id}`)
     .then(res => res.json())
