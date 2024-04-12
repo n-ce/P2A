@@ -26,9 +26,10 @@ async function handler(request, response) {
   const data = await fetch(`${api}/streams/${id}`)
     .then(res => res.json())
     .then(json => ({
+      'id': id,
       'title': json.title,
-      'uploader': json.uploader,
-      'uploaderUrl': json.uploaderUrl,
+      'author': json.uploader,
+      'authorId': json.uploaderUrl.slice(9),
       'duration': json.duration,
       'thumbnailUrl': `https://i3.ytimg.com/vi_webp/${id}/mqdefault.webp`
     }))
