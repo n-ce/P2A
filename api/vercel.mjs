@@ -15,7 +15,7 @@ const allowCors = fn => async (req, res) => {
   return await fn(req, res)
 }
 
-export function convertSStoHHMMSS(seconds) {
+function convertSStoHHMMSS(seconds) {
   if (seconds < 0) return '';
   const hh = Math.floor(seconds / 3600);
   seconds %= 3600;
