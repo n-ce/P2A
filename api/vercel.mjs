@@ -29,9 +29,31 @@ function convertSStoHHMMSS(seconds) {
     hh + ':' : '') + `${mmStr}:${ssStr}`;
 }
 
+const instanceArray = [
+  'https://pipedapi.kavin.rocks',
+  'https://pipedapi.leptons.xyz',
+  'https://piped-api.lunar.icu',
+  'https://pipedapi.r4fo.com',
+  'https://pipedapi-libre.kavin.rocks',
+  'https://api.piped.projectsegfau.lt',
+  'https://pipedapi.us.projectsegfau.lt',
+  'https://api.piped.privacydev.net',
+  'https://pipedapi.smnz.de',
+  'https://pipedapi.adminforge.de',
+  'https://pipedapi.astartes.nl',
+  'https://pipedapi.drgns.space',
+  'https://piapi.ggtyler.dev',
+  'https://pipedapi.ducks.party',
+  'https://pipedapi.ngn.tf',
+  'https://piped-api.codespace.cz',
+  'https://pipedapi.reallyaweso.me'
+];
+
+
 async function handler(request, response) {
 
-  const api = 'https://pipedapi.kavin.rocks';
+  const api = instanceArray[Math.floor(Math.random() * instanceArray.length)];
+
   const { id } = request.query;
 
   if (!id)
